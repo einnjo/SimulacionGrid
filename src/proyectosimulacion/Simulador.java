@@ -1,5 +1,8 @@
 package proyectosimulacion;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -187,5 +190,15 @@ public class Simulador {
     
     public void despliegaEstadisticas(){
         System.out.printf("%20d%20s%20.0f%20.0f%20.0f%20.0f%20.0f%n", nProcs,broker.getTipo(),reloj,tSistemaPromedio,makespan,colaPromedio,colaMax);
+        
+        try{
+            FileWriter write = new FileWriter(GeneraSimulacion.PATH_RESULTADO,true);
+            PrintWriter print_line = new PrintWriter(write);
+            print_line.printf("%d\t%s\t%.0f\t%.0f\t%.0f\t%.0f\t%.0f%n", nProcs,broker.getTipo(),reloj,tSistemaPromedio,makespan,colaPromedio,colaMax);
+            print_line.close();
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+            System.out.println("ERROR DE ESCRITURA DE RESULTADOS");
+        }
     }
 }
